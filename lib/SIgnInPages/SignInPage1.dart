@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+// import 'package:multi_validator/multi_validator.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 class SignInPage1 extends StatefulWidget {
   SignInPage1();
 
@@ -12,6 +13,11 @@ class _SignInPage1State extends State<SignInPage1> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    TextEditingController namecon = TextEditingController();
+    TextEditingController emailcon = TextEditingController();
+    TextEditingController passcon = TextEditingController();
+    String pass = "";
+    bool password = false;
     return Scaffold(
       body: Container(
         height: screenHeight,
@@ -78,7 +84,85 @@ class _SignInPage1State extends State<SignInPage1> {
                   ),
                 )
               ]),
-            )
+            ),
+            Container(
+              width: screenWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: TextFormField(
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "Required*"),
+                    PatternValidator(
+                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))'
+                        r'@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|'
+                        r'(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+                        errorText: "Enter Valid Email"),
+                  ]),
+                  autovalidateMode: (AutovalidateMode.always),
+                  keyboardType: TextInputType.name,
+                  textCapitalization: TextCapitalization.words,
+                  // textInputAction: TextInputAction.emergencyCall,
+                  controller: emailcon,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.mail_outline),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 40),
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          BorderSide(color: Colors.purpleAccent)),
+                      hintText: "Email",
+                      errorStyle: TextStyle(color: Color(0xffff0000))),
+                ),
+              ),
+            ),
+            Container(
+              width: screenWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: TextFormField(
+                  onChanged: (value) {
+                    pass = value;
+                    print(pass);
+                  },
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "Required*"),
+                    PatternValidator(
+                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                        errorText: "Enter Valid Password"),
+                    MinLengthValidator(8,
+                        errorText:
+                        'password must be at least 8 digits long'),
+                  ]),
+                  controller: passcon,
+                  obscureText: !password,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                      prefixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              password = !password;
+                            });
+                          },
+                          icon: Icon(password
+                              ? Icons.visibility
+                              : Icons.visibility_off)),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 40),
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          BorderSide(color: Colors.purpleAccent)),
+                      hintText: "Password",
+                      errorStyle: TextStyle(color: Color(0xffff0000))),
+                ),
+              ),
+            ),
           ],
         ),
       ),
