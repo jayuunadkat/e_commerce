@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 // import 'package:multi_validator/multi_validator.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-class SignInPage1 extends StatefulWidget {
-  SignInPage1();
+class EnterPassword extends StatefulWidget {
+  EnterPassword();
 
   @override
-  State<SignInPage1> createState() => _SignInPage1State();
+  State<EnterPassword> createState() => _EnterPasswordState();
 }
 
-class _SignInPage1State extends State<SignInPage1> {
+class _EnterPasswordState extends State<EnterPassword> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -61,10 +61,10 @@ class _SignInPage1State extends State<SignInPage1> {
                   onTap: () {},
                   child: Container(
                     margin: EdgeInsets.only(
-                      top: screenHeight * 0.0455566,
-                      right: screenWidth * 0.6476,
+                        top: screenHeight * 0.0455566,
+                        // right: screenWidth * 0.8533,
                         // left: 0.0777 * screenWidth
-                      left: screenWidth * 0.08
+                        left: screenWidth * 0.08
                     ),
                     child: Text(
                       "Sign in",
@@ -108,11 +108,10 @@ class _SignInPage1State extends State<SignInPage1> {
                       prefixIcon: Icon(Icons.mail_outline),
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 20, horizontal: 40),
-                      fillColor: Color.fromRGBO(246, 246, 247, 1),
+                      fillColor: Colors.white,
                       filled: true,
                       border: OutlineInputBorder(
-                        
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                           BorderSide(color: Colors.purpleAccent)),
                       hintText: "Email",
@@ -143,7 +142,7 @@ class _SignInPage1State extends State<SignInPage1> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                      suffixIcon: IconButton(
+                      prefixIcon: IconButton(
                           onPressed: () {
                             setState(() {
                               password = !password;
@@ -154,10 +153,10 @@ class _SignInPage1State extends State<SignInPage1> {
                               : Icons.visibility_off)),
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 20, horizontal: 40),
-                      fillColor: Color.fromRGBO(246, 246, 247, 1),
+                      fillColor: Colors.white,
                       filled: true,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                           BorderSide(color: Colors.purpleAccent)),
                       hintText: "Password",
